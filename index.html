@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infografía: Salud y Ritmos Corporales</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Google Fonts - Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- html2canvas and jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-3xl text-center mb-6">
+        Infografía: Salud y Ritmos Corporales
+      </h1>
+
+      <section id="user-data-input-section">
+        <h2
+          class="text-2xl mb-4 typewriter-text"
+          data-text="Tus Datos de Salud"
+        >
+          Tus Datos de Salud
+        </h2>
+        <p class="mb-4">
+          Ingresa tus datos actuales para personalizar los gráficos y obtener
+          tus métricas de referencia:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+            <h3 class="text-xl text-blue-300 mb-3">Datos Personales</h3>
+            <div class="user-input-group grid grid-cols-1 gap-4">
+              <div>
+                <label for="user-name">Nombre:</label>
+                <input
+                  type="text"
+                  id="user-name"
+                  placeholder="Ej: Juan Pérez"
+                  autocomplete="name"
+                  autofocus
+                />
+              </div>
+              <div>
+                <label for="dob">Fecha de Nacimiento:</label>
+                <input type="date" id="dob" autocomplete="bday" />
+              </div>
+              <div>
+                <label for="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Ej: tu@email.com"
+                  autocomplete="email"
+                />
+              </div>
+              <div>
+                <label for="height">Estatura (cm):</label>
+                <input
+                  type="number"
+                  id="height"
+                  placeholder="Ej: 170"
+                  autocomplete="off"
+                />
+              </div>
+              <div>
+                <label for="weight">Peso actual (kg):</label>
+                <input
+                  type="number"
+                  id="weight"
+                  placeholder="Ej: 70"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+            <h3 class="text-xl text-blue-300 mb-3">Datos de Presión</h3>
+            <div class="user-input-group grid grid-cols-1 gap-4">
+              <div>
+                <label for="systolic-pressure">Presión Sistólica (mmHg):</label>
+                <input
+                  type="number"
+                  id="systolic-pressure"
+                  placeholder="Ej: 120"
+                  autocomplete="off"
+                />
+              </div>
+              <div>
+                <label for="diastolic-pressure"
+                  >Presión Diastólica (mmHg):</label
+                >
+                <input
+                  type="number"
+                  id="diastolic-pressure"
+                  placeholder="Ej: 80"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="generate-charts-button" class="generate-button">
+          Generar Gráficos y Métricas
+        </button>
+
+        <div
+          id="normal-metrics-display"
+          class="metrics-display"
+          style="display: none"
+        >
+          <h3 class="text-xl">Métricas de Referencia para Ti:</h3>
+          <p>
+            <strong>Presión Arterial Normal:</strong>
+            <span id="normal-bp-range">--</span>
+          </p>
+          <p>
+            <strong>Rango de Peso Saludable (IMC 18.5-24.9):</strong>
+            <span id="normal-weight-range">--</span>
+          </p>
+          <p class="text-sm italic mt-2">
+            Estos son rangos generales. Consulta siempre a un profesional de la
+            salud para una evaluación personalizada.
+          </p>
+        </div>
+      </section>
+
+      <section id="blood-pressure-section">
+        <h2
+          class="text-2xl mb-4 typewriter-text"
+          data-text="Control de la Presión Arterial"
+        >
+          Control de la Presión Arterial
+        </h2>
+        <p class="text-lg mb-4">
+          <span class="icon">✨</span> Tomarse la presión dos veces al día
+          siguiendo los ritmos circadianos es una muy buena práctica, ya que la
+          presión arterial no es constante: varía de forma natural a lo largo
+          del día.
+        </p>
+        <p class="mb-6">
+          Aquí te explicamos cómo elegir los mejores horarios, basados en la
+          fisiología del cuerpo:
+        </p>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">🧠</span> ¿Qué son los ciclos circadianos y cómo
+          afectan la presión arterial?
+        </h3>
+        <p>
+          El ciclo circadiano es el reloj biológico que regula funciones como:
+        </p>
+        <ul class="list-disc list-inside ml-4 mb-6">
+          <li>La temperatura corporal</li>
+          <li>La producción de hormonas</li>
+          <li>El ritmo cardíaco</li>
+          <li>Y sí: también la presión arterial</li>
+        </ul>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">📈</span> Patrón natural típico de la presión
+          arterial (Gráfico de Líneas):
+        </h3>
+        <div id="bp-chart-container-wrapper" class="relative">
+          <div class="line-chart-container">
+            <svg
+              id="bp-line-chart-svg"
+              class="line-chart-svg"
+              viewBox="0 0 400 150"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <!-- Grid Lines Y -->
+              <line class="grid-line" x1="50" y1="110" x2="380" y2="110"></line>
+              <!-- 90 -->
+              <line class="grid-line" x1="50" y1="85" x2="380" y2="85"></line>
+              <!-- 100 -->
+              <line class="grid-line" x1="50" y1="60" x2="380" y2="60"></line>
+              <!-- 110 -->
+              <line class="grid-line" x1="50" y1="35" x2="380" y2="35"></line>
+              <!-- 120 -->
+
+              <!-- Y-axis labels -->
+              <text x="40" y="115" class="line-chart-label-y">90</text>
+              <text x="40" y="90" class="line-chart-label-y">100</text>
+              <text x="40" y="65" class="line-chart-label-y">110</text>
+              <text x="40" y="40" class="line-chart-label-y">120</text>
+
+              <!-- X-axis -->
+              <line
+                x1="50"
+                y1="130"
+                x2="380"
+                y2="130"
+                stroke="#cbd5e0"
+                stroke-width="1"
+              ></line>
+              <text x="60" y="145" class="line-chart-label-x">Noche</text>
+              <text x="120" y="145" class="line-chart-label-x">Mañana</text>
+              <text x="200" y="145" class="line-chart-label-x">Mediodía</text>
+              <text x="280" y="145" class="line-chart-label-x">Tarde</text>
+              <text x="350" y="145" class="line-chart-label-x">Noche</text>
+
+              <!-- Data points (simplified for visual representation of the curve) -->
+              <polyline
+                class="line-chart-line"
+                points="50,110 100,60 170,40 240,50 310,70 380,110"
+              ></polyline>
+
+              <!-- Circles for data points -->
+              <circle class="line-chart-point" cx="50" cy="110" r="4"></circle>
+              <circle class="line-chart-point" cx="100" cy="60" r="4"></circle>
+              <circle class="line-chart-point" cx="170" cy="40" r="4"></circle>
+              <circle class="line-chart-point" cx="240" cy="50" r="4"></circle>
+              <circle class="line-chart-point" cx="310" cy="70" r="4"></circle>
+              <circle class="line-chart-point" cx="380" cy="110" r="4"></circle>
+
+              <!-- User's BP point will be added here by JS -->
+            </svg>
+          </div>
+          <button
+            class="export-button"
+            onclick="exportChartToPdf('bp-chart-container-wrapper', 'presion_arterial_circadiana.pdf')"
+          >
+            Exportar a PDF
+          </button>
+        </div>
+        <p class="text-sm italic mb-6">
+          Este gráfico de líneas muestra la variación típica de la presión
+          arterial a lo largo del día, influenciada por los ciclos circadianos.
+          Tu lectura de presión actual se reflejará aquí.
+        </p>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">🕐</span> Recomendaciones de horarios para tomarte
+          la presión arterial
+        </h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Momento</th>
+                <th>Horario ideal recomendado</th>
+                <th>¿Por qué?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mañana</td>
+                <td><span class="highlight">Entre 6:30 a 8:00 a.m.</span></td>
+                <td>
+                  Antes del pico circadiano, refleja la presión basal. Debe
+                  tomarse antes del desayuno y medicación.
+                </td>
+              </tr>
+              <tr>
+                <td>Noche</td>
+                <td><span class="highlight">Entre 8:00 y 9:30 p.m.</span></td>
+                <td>
+                  Cuando la presión comienza a bajar de forma natural, ideal
+                  para verificar cómo terminó el día.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm italic mb-6">
+          <span class="icon">📌</span> Importante: Siempre que puedas, mantené
+          los mismos horarios todos los días. La consistencia hace más útil el
+          registro.
+        </p>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">👌</span> Rutina sugerida
+        </h3>
+        <ul class="list-disc list-inside ml-4 mb-6">
+          <li>
+            <span class="icon">⏰</span> <strong>7:00 a.m.:</strong> Sentarse
+            tranquilo por 5 minutos, sin haber comido, tomado café, fumado ni
+            hecho ejercicio. Tomarse la presión.
+          </li>
+          <li>
+            <span class="icon">📝</span> Anotar valor, fecha, hora, cómo te
+            sentís.
+          </li>
+          <li>
+            <span class="icon">💊</span> Luego tomar la medicación y desayunar.
+          </li>
+          <li>
+            <span class="icon">🌙</span> <strong>9:00 p.m.:</strong> Nuevamente,
+            tras sentarse tranquilo por 5 minutos, sin actividad física reciente
+            ni alimentos pesados. Tomarse la presión.
+          </li>
+          <li>
+            <span class="icon">📝</span> Registrar igual que por la mañana.
+          </li>
+        </ul>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">💡</span> Consejo adicional: Seguimiento con la
+          Femmto App
+        </h3>
+        <p class="mb-4">
+          Para un seguimiento completo y organizado de todas tus mediciones de
+          salud, te sugerimos utilizar la aplicación
+          <a
+            href="https://www.femmto.com/app-femmto/"
+            target="_blank"
+            class="text-blue-400 hover:underline"
+            >Femmto App</a
+          >. Esta herramienta te permitirá registrar tus valores, visualizar
+          tendencias y mantener un historial detallado de tu progreso.
+        </p>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">✅</span> ¿Quiénes deberían controlar su presión
+          siguiendo un horario fijo?
+        </h3>
+        <p class="mb-4">
+          Aunque el control diario de la presión arterial está más asociado al
+          tratamiento de hipertensión en adultos, el ritmo circadiano de la
+          presión y la importancia de los horarios aplican a todas las edades
+          (desde niños hasta adultos mayores), pero con matices según el grupo
+          etario y condición clínica.
+        </p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Grupo etario</th>
+                <th>¿Aplica control diario con horario?</th>
+                <th>¿Por qué?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Adultos (18-65 años)</td>
+                <td>✅ Sí</td>
+                <td>
+                  Principal grupo con hipertensión diagnosticada. El ritmo
+                  circadiano ayuda a ajustar el tratamiento.
+                </td>
+              </tr>
+              <tr>
+                <td>Adultos mayores (65+)</td>
+                <td>✅ Sí (¡con más razón!)</td>
+                <td>
+                  Mayor riesgo de fluctuaciones. Requieren seguimiento más
+                  cercano, especialmente si hay riesgo de hipotensión.
+                </td>
+              </tr>
+              <tr>
+                <td>Adolescentes (13-17)</td>
+                <td>⚠️ Solo si tienen diagnóstico</td>
+                <td>
+                  No es común controlar a diario a menos que haya hipertensión
+                  juvenil, obesidad o problemas cardíacos.
+                </td>
+              </tr>
+              <tr>
+                <td>Niños (0-12 años)</td>
+                <td>⚠️ Solo si el pediatra lo indica</td>
+                <td>
+                  En casos especiales como enfermedades renales, cardíacas o
+                  presión alta hereditaria. No se recomienda automedición sin
+                  supervisión médica.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">💡</span> ¿Qué cambia según la edad?
+        </h3>
+        <ul class="list-disc list-inside ml-4 mb-6">
+          <li>
+            Niños y adolescentes tienen valores normales más bajos y presión más
+            variable.
+          </li>
+          <li>
+            En adultos mayores, es común ver "hipotensión ortostática" (baja de
+            presión al levantarse), por lo que el médico puede sugerir
+            mediciones adicionales en diferentes posturas o momentos.
+          </li>
+          <li>
+            En pacientes con condiciones específicas (como diabetes,
+            enfermedades renales, embarazo con preeclampsia, etc.), el monitoreo
+            diario y el horario también son muy importantes, sin importar la
+            edad.
+          </li>
+        </ul>
+      </section>
+
+      <section id="weight-section">
+        <h2
+          class="text-2xl mb-4 typewriter-text"
+          data-text="Control del Peso Corporal"
+        >
+          Control del Peso Corporal
+        </h2>
+        <p class="text-lg mb-4">
+          <span class="icon">👏</span> Controlar el peso corporal regularmente
+          es una de las mejores herramientas para mantener una buena salud, pero
+          es importante hacerlo con inteligencia y sin obsesionarse.
+        </p>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">✅</span> ¿Cuántas veces a la semana es
+          recomendable pesarse?
+        </h3>
+        <p class="mb-4">Según los expertos en salud metabólica y nutrición:</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Frecuencia recomendada</th>
+                <th>¿Es útil?</th>
+                <th>¿Por qué?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 vez por semana (ideal)</td>
+                <td>✅ Sí</td>
+                <td>
+                  Te permite ver tendencias reales, evitando frustraciones por
+                  fluctuaciones diarias normales.
+                </td>
+              </tr>
+              <tr>
+                <td>2-3 veces por semana</td>
+                <td>⚠️ A veces sí</td>
+                <td>
+                  Puede servir si estás en un programa activo de pérdida de
+                  peso, pero sin caer en la obsesión.
+                </td>
+              </tr>
+              <tr>
+                <td>Todos los días</td>
+                <td>❌ No recomendable</td>
+                <td>
+                  El peso varía naturalmente por agua, comidas, hormonas, etc.
+                  Ver cambios diarios puede causar ansiedad o desmotivación.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">🧠</span> ¿Cuál es el mejor día y horario para
+          pesarse?
+        </h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Recomendación</th>
+                <th>Motivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Una vez por semana</td>
+                <td>Por ejemplo, todos los lunes. Evitá cambiar de día.</td>
+              </tr>
+              <tr>
+                <td>A la misma hora</td>
+                <td>Idealmente a la mañana, en ayunas, después de orinar.</td>
+              </tr>
+              <tr>
+                <td>Sin ropa o con ropa ligera</td>
+                <td>Para que los datos sean más consistentes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-6">
+          Esto elimina las variaciones producidas por líquidos retenidos,
+          comidas del día anterior o actividad física.
+        </p>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">💡</span> ¿Por qué no es buena idea pesarse todos
+          los días? (Pictograma)
+        </h3>
+        <p class="mb-4">
+          El peso corporal no es una cifra estática. Varía por muchas razones:
+        </p>
+        <div class="pictogram-container">
+          <div class="pictogram-item">
+            <span class="pictogram-icon">💧</span>
+            <p>Retención de líquidos</p>
+          </div>
+          <div class="pictogram-item">
+            <span class="pictogram-icon">🍔</span>
+            <p>Digestión incompleta</p>
+          </div>
+          <div class="pictogram-item">
+            <span class="pictogram-icon">🧬</span>
+            <p>Cambios hormonales</p>
+          </div>
+          <div class="pictogram-item">
+            <span class="pictogram-icon">🧘‍♀️</span>
+            <p>Estrés o sueño</p>
+          </div>
+          <div class="pictogram-item">
+            <span class="pictogram-icon">🏋️‍♂️</span>
+            <p>Ejercicio intenso</p>
+          </div>
+        </div>
+        <p class="mb-4">
+          <span class="icon">👉</span> Esto puede llevar a interpretaciones
+          erróneas o desmotivación si no ves los resultados esperados de un día
+          a otro.
+        </p>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">📊</span> Recomendación profesional
+        </h3>
+        <p class="mb-4">
+          <span class="icon">📝</span> Llevar un registro semanal del peso,
+          junto con otros datos útiles: fecha, ropa, cómo te sentís, nivel de
+          energía, si hiciste ejercicio.
+        </p>
+        <p class="mb-4">
+          Complementar el control de peso con otras métricas más relevantes,
+          como:
+        </p>
+        <ul class="list-disc list-inside ml-4 mb-6">
+          <li>Medición de cintura (circunferencia abdominal)</li>
+          <li>Nivel de energía o resistencia física</li>
+          <li>Calidad del sueño</li>
+          <li>
+            Porcentaje de grasa corporal (si tenés balanza con bioimpedancia o
+            seguimiento médico)
+          </li>
+        </ul>
+
+        <h3 class="text-2xl mb-4">
+          <span class="icon">📈</span> Tu Peso Actual vs. Rango Saludable
+          (Gráfico de Barras)
+        </h3>
+        <div id="weight-chart-container-wrapper" class="relative">
+          <div class="weight-chart-container">
+            <div class="weight-chart-day">
+              <div
+                id="user-weight-bar"
+                class="weight-chart-bar"
+                style="height: 0%"
+              ></div>
+              <span class="weight-chart-label">Tu Peso</span>
+            </div>
+            <div class="weight-chart-day">
+              <div
+                id="min-healthy-weight-bar"
+                class="weight-chart-bar bg-green-500"
+                style="height: 0%"
+              ></div>
+              <span class="weight-chart-label">Min Saludable</span>
+            </div>
+            <div class="weight-chart-day">
+              <div
+                id="max-healthy-weight-bar"
+                class="weight-chart-bar bg-green-500"
+                style="height: 0%"
+              ></div>
+              <span class="weight-chart-label">Max Saludable</span>
+            </div>
+          </div>
+          <button
+            class="export-button"
+            onclick="exportChartToPdf('weight-chart-container-wrapper', 'peso_actual_vs_saludable.pdf')"
+          >
+            Exportar a PDF
+          </button>
+        </div>
+        <p class="text-sm italic mb-6">
+          Este gráfico de barras compara tu peso actual con el rango de peso
+          saludable calculado para tu altura.
+        </p>
+      </section>
+
+      <section id="history-section">
+        <h2
+          class="text-2xl mb-4 typewriter-text"
+          data-text="Historial de Mediciones"
+        >
+          Historial de Mediciones
+        </h2>
+        <div id="measurement-history" class="metrics-display">
+          <p class="text-center text-gray-400">No hay registros aún.</p>
+        </div>
+      </section>
+
+      <section id="llm-section">
+        <h2
+          class="text-2xl mb-4 typewriter-text"
+          data-text="Análisis Personalizado con IA ✨"
+        >
+          Análisis Personalizado con IA ✨
+        </h2>
+        <div class="llm-interaction-container">
+          <p class="mb-4">
+            Introduce tus datos de presión arterial o peso para obtener un
+            consejo personalizado basado en la información de la infografía:
+          </p>
+          <textarea
+            id="user-input"
+            class="llm-textarea"
+            placeholder="Ej: Mi presión fue 130/85 esta mañana. O: Mi peso ha subido 1kg esta semana."
+          ></textarea>
+          <button id="analyze-button" class="llm-button">
+            Analizar con IA ✨
+          </button>
+          <div id="loading-indicator" class="loading-indicator">
+            Cargando...
+          </div>
+          <div id="llm-response" class="llm-response"></div>
+        </div>
+      </section>
+
+      <section id="conclusion-section">
+        <h2
+          class="text-2xl mb-4 typewriter-text"
+          data-text="Conclusión General"
+        >
+          Conclusión General
+        </h2>
+        <p class="mb-4">
+          Sí, los ciclos circadianos importan mucho al momento de tomarse la
+          presión, y la consistencia es clave para el control del peso. Usar
+          estas prácticas a tu favor mejora la precisión de los registros y le
+          da a tu médico una foto más real de cómo funciona tu cuerpo durante el
+          día.
+        </p>
+        <p class="text-base font-semibold mb-2">
+          <span class="icon">📌</span> Regla general para ambos:
+        </p>
+        <ul class="list-disc list-inside ml-4 mb-6">
+          <li>
+            Medirse la presión y pesarse regularmente, en horarios estables, es
+            útil a cualquier edad…
+          </li>
+          <li>solo si hay un diagnóstico o indicación médica para hacerlo.</li>
+          <li>
+            Para personas sin antecedentes, no es necesario ni recomendable
+            hacerlo de forma rutinaria.
+          </li>
+        </ul>
+        <p class="mt-6">
+          Para un seguimiento completo y organizado de todas tus mediciones de
+          salud, te sugerimos utilizar la aplicación
+          <a
+            href="https://www.femmto.com/app-femmto/"
+            target="_blank"
+            class="text-blue-400 hover:underline"
+            >Femmto App</a
+          >. ¡Es una excelente herramienta para llevar un control detallado de
+          todo este proceso!
+        </p>
+        <p>
+          ¿Te gustaría que armemos una tabla con los valores normales esperados
+          por rango de edad para la presión arterial, o un modelo de hoja de
+          seguimiento semanal (en papel o Excel) que incluya peso, medidas y
+          otros indicadores de salud como energía, sueño o hábitos? También te
+          puedo dar una guía visual para saber cuándo consultar al médico según
+          el resultado de tus lecturas.
+        </p>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
