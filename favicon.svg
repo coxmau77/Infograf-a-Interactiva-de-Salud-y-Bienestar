@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g>
+    <!-- Corazón -->
+    <path d="M32 58s-18-11.6-18-26A10 10 0 0 1 32 18a10 10 0 0 1 18 14c0 14.4-18 26-18 26z" fill="#e53e3e" stroke="#c53030" stroke-width="2"/>
+    <!-- Cruz médica -->
+    <rect x="28" y="30" width="8" height="16" rx="2" fill="#fff"/>
+    <rect x="22" y="36" width="20" height="8" rx="2" fill="#fff"/>
+    <rect x="30" y="32" width="4" height="12" fill="#3182ce"/>
+    <rect x="24" y="38" width="16" height="4" fill="#3182ce"/>
+  </g>
+</svg> 
